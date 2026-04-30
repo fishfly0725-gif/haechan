@@ -206,22 +206,34 @@
         }
     </style>
 </head>
-<body>
-    <header>
-        <div class="logo">LottoGen</div>
-        <nav>
-            <a href="#generator" aria-label="번호 추첨기로 이동">추첨기</a>
-            <a href="#guide" aria-label="이용 방법으로 이동">가이드</a>
-            <a href="#info" aria-label="서비스 정보로 이동">정보</a>
-            <a href="#stats" aria-label="통계 분석으로 이동">통계분석</a>
-            <a href="#faq" aria-label="자주 묻는 질문으로 이동">FAQ</a>
-            <a href="#contact" aria-label="제휴 문의로 이동">문의</a>
-            <button id="theme-toggle" onclick="toggleTheme()" style="padding: 5px 10px; font-size: 12px; margin-left: 10px;" aria-label="다크 모드 또는 라이트 모드로 전환">테마</button>
-        </nav>
-    </header>
+<header>
+    <div class="logo">LottoGen</div>
+    <nav>
+        <a href="#generator" aria-label="번호 추첨기로 이동">추첨기</a>
+        <a href="#blog" aria-label="뉴스 및 팁으로 이동">인사이트</a>
+        <a href="#stats" aria-label="통계 분석으로 이동">통계분석</a>
+        <a href="#faq" aria-label="자주 묻는 질문으로 이동">FAQ</a>
+        <a href="#contact" aria-label="제휴 문의로 이동">문의</a>
+        <button id="theme-toggle" onclick="toggleTheme()" style="padding: 5px 10px; font-size: 12px; margin-left: 10px;" aria-label="다크 모드 또는 라이트 모드로 전환">테마</button>
+    </nav>
+</header>
 
-    <div class="container">
-        <div id="generator" style="padding-top: 20px;">
+<div class="container">
+...
+    <section id="blog" class="blog-section section-card">
+        <h2>로또 인사이트 & 최신 뉴스</h2>
+        <article style="margin-bottom: 25px; border-bottom: 1px solid var(--input-border); padding-bottom: 15px;">
+            <h3 style="color: var(--btn-bg);">복권 기금의 사회적 가치와 활용처</h3>
+            <p>우리가 구매하는 로또 복권 금액의 약 42%는 복권 기금으로 조성됩니다. 이 기금은 저소득층의 주거 안정 지원, 소외계층을 위한 복지 사업, 그리고 문화예술 진흥 등 다양한 공익 사업에 소중하게 사용되고 있습니다. 건전한 복권 구매가 우리 이웃을 돕는 따뜻한 나눔이 될 수 있습니다.</p>
+        </article>
+        <article>
+            <h3 style="color: var(--btn-bg);">나만의 번호를 만드는 '꿈' 분석법</h3>
+            <p>많은 분들이 간밤의 꿈을 통해 번호를 선택하곤 합니다. 전통적으로 '돼지'는 풍요를, '불'은 번창을 상징한다고 알려져 있죠. 비록 과학적인 근거는 없지만, 꿈의 이미지를 숫자로 치환하여 번호를 골라보는 것도 로또를 즐기는 하나의 재미있는 방법이 될 수 있습니다. 즐거운 상상이 당첨의 기쁨으로 이어지길 바랍니다.</p>
+        </article>
+    </section>
+
+    <section id="stats" class="stats-section section-card">
+
             <h1>로또 번호 추첨</h1>
             <p>버튼을 클릭하여 6개의 로또 번호를 추첨하세요!</p>
             <button onclick="generateNumbers()" aria-label="로또 번호 생성하기">번호 추첨</button>
@@ -347,6 +359,13 @@
         document.documentElement.setAttribute('data-theme', savedTheme);
 
         function generateNumbers() {
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = '추첨 중...';
+            
+            const container = document.getElementById('numbers');
+            container.innerHTML = '';
+            
             const numbers = [];
             while (numbers.length < 6) {
                 const num = Math.floor(Math.random() * 45) + 1;
@@ -355,18 +374,26 @@
                 }
             }
             numbers.sort((a, b) => a - b);
-            displayNumbers(numbers);
-        }
 
-        function displayNumbers(numbers) {
-            const container = document.getElementById('numbers');
-            container.innerHTML = '';
-            numbers.forEach(num => {
+            let i = 0;
+            const interval = setInterval(() => {
                 const div = document.createElement('div');
                 div.className = 'number';
-                div.textContent = num;
+                div.style.transform = 'scale(0)';
+                div.style.transition = 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                div.textContent = numbers[i];
                 container.appendChild(div);
-            });
+                
+                // Trigger animation
+                setTimeout(() => div.style.transform = 'scale(1)', 10);
+                
+                i++;
+                if (i >= numbers.length) {
+                    clearInterval(interval);
+                    btn.disabled = false;
+                    btn.textContent = '번호 추첨';
+                }
+            }, 300);
         }
 
         const policies = {
