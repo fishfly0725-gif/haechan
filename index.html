@@ -1,35 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <link rel="icon" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using @vitejs/plugin-react"
-    />
-    <link rel="apple-touch-icon" href="/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
-    <link rel="manifest" href="/manifest.json" />
-    <title>React App</title>
-  </head>
-  <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또 번호 추첨</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #numbers {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            margin: 5px;
+            border-radius: 50%;
+            background-color: #fff;
+            border: 2px solid #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>로또 번호 추첨</h1>
+    <p>버튼을 클릭하여 6개의 로또 번호를 추첨하세요!</p>
+    <button onclick="generateNumbers()">번호 추첨</button>
+    <div id="numbers"></div>
 
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
+    <script>
+        function generateNumbers() {
+            const numbers = [];
+            while (numbers.length < 6) {
+                const num = Math.floor(Math.random() * 45) + 1;
+                if (!numbers.includes(num)) {
+                    numbers.push(num);
+                }
+            }
+            numbers.sort((a, b) => a - b);
+            displayNumbers(numbers);
+        }
 
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
-  </body>
-  <script type="module" src="/src/index.jsx"></script>
+        function displayNumbers(numbers) {
+            const container = document.getElementById('numbers');
+            container.innerHTML = '';
+            numbers.forEach(num => {
+                const div = document.createElement('div');
+                div.className = 'number';
+                div.textContent = num;
+                container.appendChild(div);
+            });
+        }
+    </script>
+</body>
 </html>
