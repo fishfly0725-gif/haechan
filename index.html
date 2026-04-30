@@ -6,7 +6,8 @@
     <meta name="google-adsense-account" content="ca-pub-1360936154185310">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-1360936154185310"
      crossorigin="anonymous"></script>
-    <title>로또 번호 추첨</title>
+    <title>로또 번호 추첨 - 무료 로또 번호 자동 생성 및 통계 팁</title>
+    <meta name="description" content="매주 당첨 기회를 높여주는 무료 로또 번호 생성기입니다. 통계 기반의 번호 선택 팁과 함께 무작위 번호 추첨 서비스를 제공합니다.">
     <style>
         :root {
             --bg-color: #f0f0f0;
@@ -145,7 +146,21 @@
         <button onclick="generateNumbers()">번호 추첨</button>
         <div id="numbers"></div>
 
+        <section class="info-section" style="margin-top: 50px; text-align: left; line-height: 1.6;">
+            <h2>로또 번호 추첨 서비스 소개</h2>
+            <p>본 서비스는 사용자에게 무작위로 생성된 로또 번호를 제공하는 무료 도구입니다. 엄격한 난수 생성 알고리즘을 사용하여 매번 독립적인 번호 세트를 생성합니다.</p>
+            
+            <h3>당첨 확률을 높이는 번호 선택 팁</h3>
+            <ul>
+                <li><strong>균형 있는 조합:</strong> 홀수와 짝수의 비율을 3:3 또는 2:4 정도로 섞는 것이 통계적으로 유리한 경우가 많습니다.</li>
+                <li><strong>고저 비율 조정:</strong> 1~22 사이의 낮은 번호와 23~45 사이의 높은 번호를 적절히 배분하세요.</li>
+                <li><strong>연속 번호 피하기:</strong> 1, 2, 3과 같은 연속된 번호가 세 개 이상 나오는 경우는 드뭅니다.</li>
+            </ul>
+            <p>※ 주의: 로또는 확률 게임이며, 본 서비스에서 제공하는 번호는 당첨을 보장하지 않습니다. 건전한 게임 문화를 지향합니다.</p>
+        </section>
+
         <div class="contact-form">
+
             <h2>제휴 문의</h2>
             <form action="https://formspree.io/f/mwvykkgl" method="POST">
                 <div class="form-group">
@@ -177,6 +192,23 @@
                 })();
             </script>
             <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        </div>
+
+        <footer style="margin-top: 50px; padding: 20px; border-top: 1px solid var(--input-border); font-size: 14px;">
+            <p>&copy; 2024 로또 번호 추첨 서비스. All rights reserved.</p>
+            <nav>
+                <a href="#" onclick="showModal('about')">회사 소개</a> | 
+                <a href="#" onclick="showModal('privacy')">개인정보처리방침</a> | 
+                <a href="#" onclick="showModal('terms')">이용약관</a>
+            </nav>
+        </footer>
+    </div>
+
+    <!-- Modal for Policies -->
+    <div id="policy-modal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:1000; overflow-y: auto;">
+        <div style="background:var(--card-bg); color:var(--text-color); margin: 5% auto; padding: 20px; width: 80%; max-width: 800px; border-radius: 10px; position: relative;">
+            <span onclick="closeModal()" style="position:absolute; right:20px; top:10px; font-size:24px; cursor:pointer;">&times;</span>
+            <div id="modal-content"></div>
         </div>
     </div>
 
@@ -214,6 +246,29 @@
                 div.textContent = num;
                 container.appendChild(div);
             });
+        }
+
+        const policies = {
+            about: `<h2>회사 소개</h2><p>로또 번호 추첨 서비스는 사용자들에게 투명하고 공정한 무작위 번호 생성 기능을 제공하기 위해 만들어졌습니다. 우리는 복권 구매의 즐거움을 더하고, 건전한 복권 문화를 장려합니다.</p>`,
+            privacy: `<h2>개인정보처리방침</h2><p>본 서비스는 사용자의 개인정보를 수집하거나 저장하지 않습니다. 단, Google AdSense 및 Disqus와 같은 제3자 서비스를 통해 쿠키가 사용될 수 있습니다. 광고주는 사용자의 관심사에 맞는 광고를 제공하기 위해 쿠키를 사용할 수 있으며, 사용자는 브라우저 설정에서 이를 거부할 수 있습니다.</p>`,
+            terms: `<h2>이용약관</h2><p>1. 본 서비스에서 제공하는 번호는 당첨을 보장하지 않습니다. 2. 서비스 이용으로 인한 손실에 대해 책임을 지지 않습니다. 3. 과도한 복권 구매는 도박 중독으로 이어질 수 있으니 주의하시기 바랍니다.</p>`
+        };
+
+        function showModal(type) {
+            document.getElementById('modal-content').innerHTML = policies[type];
+            document.getElementById('policy-modal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('policy-modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('policy-modal');
+            if (event.target == modal) {
+                closeModal();
+            }
         }
     </script>
 </body>
